@@ -1,6 +1,6 @@
 {
   "name": "jev-text-assert",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TypeScript製CLIツール。テキストを行単位で解析し、明らかな誤りをJEVで検出する。",
   "type": "module",
   "main": "./dist/index.js",
