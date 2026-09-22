@@ -1,0 +1,34 @@
+{
+  "name": "jev-text-assert",
+  "version": "1.0.0",
+  "description": "TypeScript製CLIツール。テキストを行単位で解析し、明らかな誤りをJEVで検出する。",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "jev-text-assert": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@typesafe-ai/sdk": "^0.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
