@@ -13,6 +13,26 @@ TypeScript製CLIツール。
 
 対象行だけではなく、前後の文脈を考慮する。
 
+## インストール
+
+```sh
+npm install -g jev-text-assert
+```
+
+Node.js 20以上が必要。
+
+## 使い方
+
+環境変数 `TYPESAFE_API_KEY` を設定して実行する。
+
+```sh
+# ファイルを指定
+jev-text-assert input.txt
+
+# 標準入力
+cat input.txt | jev-text-assert
+```
+
 ## JEV
 
 `Noul` を使用する。
@@ -33,13 +53,14 @@ TypeScript製CLIツール。
 
 明らかな誤りがない場合は出力しない。
 
-判定結果の確信度が低いものや、判断が難しいものもデフォルトでは出力しない。
+判定結果の確信度が低いものや、判断が難しいものもデフォルトでは出力しない
+（Noul値が0.8未満の行は誤りとして扱わない）。
 
 ## オプション
 
 ```text
---context <number>       前後に渡す行数
---concurrency <number>   JEVへの同時リクエスト数
+--context <number>       前後に渡す行数（デフォルト: 2）
+--concurrency <number>   JEVへの同時リクエスト数（デフォルト: 4）
 --json                   JSON形式で出力
 --all                    明らかな誤り以外も含めて出力
 ```
@@ -67,4 +88,18 @@ TypeScript製CLIツール。
 ## エラー
 
 JEVのリクエストに失敗した場合は誤りとは判定せず、エラーとして扱う。
+
+```text
+10: [ERROR] 東京タワーは大阪にある。 (401 Cannot authenticate with the server. ...)
+```
+
+`--json` 指定時は `error` フィールドに格納する。
+
+```json
+{
+  "line": 10,
+  "text": "東京タワーは大阪にある。",
+  "error": "401 Cannot authenticate with the server. ..."
+}
+```
 
