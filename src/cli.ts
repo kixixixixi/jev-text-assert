@@ -2,6 +2,7 @@ import type { CliOptions } from "./types.js";
 
 const DEFAULT_CONTEXT = 2;
 const DEFAULT_CONCURRENCY = 4;
+const DEFAULT_THRESHOLD = 0.8;
 
 export function parseArgs(argv: string[]): CliOptions {
   const options: CliOptions = {
@@ -9,6 +10,7 @@ export function parseArgs(argv: string[]): CliOptions {
     concurrency: DEFAULT_CONCURRENCY,
     json: false,
     all: false,
+    threshold: DEFAULT_THRESHOLD,
   };
 
   for (let i = 0; i < argv.length; i++) {
@@ -28,6 +30,15 @@ export function parseArgs(argv: string[]): CliOptions {
           throw new Error("--concurrency には数値を指定してください");
         }
         options.concurrency = Number(value);
+        break;
+      }
+      case "--threshold": {
+        const value = argv[++i];
+        const parsed = Number(value);
+        if (!value || Number.isNaN(parsed) || parsed < 0 || parsed > 1) {
+          throw new Error("--threshold には0から1までの数値を指定してください");
+        }
+        options.threshold = parsed;
         break;
       }
       case "--json":

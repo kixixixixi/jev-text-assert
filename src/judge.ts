@@ -2,9 +2,6 @@ import { TypeSafeClient, noul } from "@typesafe-ai/sdk";
 import type { LineEntry, JudgeResult } from "./types.js";
 import { isExcluded, buildContext } from "./lines.js";
 
-/** noul値がこの値以上のとき「明らかな誤り」として扱う */
-const ERROR_THRESHOLD = 0.8;
-
 const QUESTION_INSTRUCTIONS =
   "対象行(target)の記述に明らかな事実誤認があるか判定してください。" +
   "文脈(context_before, context_after)を考慮して判定してください。" +
@@ -48,6 +45,7 @@ export async function judgeLines(
   entries: LineEntry[],
   contextSize: number,
   concurrency: number,
+  threshold: number,
   client: TypeSafeClient,
 ): Promise<JudgeResult[]> {
   const excluded = isExcluded(entries);
@@ -73,7 +71,7 @@ export async function judgeLines(
         line: entry.line,
         text: entry.text,
         score,
-        isError: score >= ERROR_THRESHOLD,
+        isError: score >= threshold,
       } satisfies JudgeResult;
     } catch (err) {
       return {

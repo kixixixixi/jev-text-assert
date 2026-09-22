@@ -7,6 +7,8 @@ export interface CliOptions {
   json: boolean;
   /** 明らかな誤り以外も含めて出力するか */
   all: boolean;
+  /** 誤りと判定するNoul値の閾値(0-1) */
+  threshold: number;
   /** 入力ファイルパス。未指定ならstdin */
   file?: string;
 }

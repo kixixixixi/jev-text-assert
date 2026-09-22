@@ -22,7 +22,13 @@ async function main() {
   const entries = splitLines(text);
 
   const client = new TypeSafeClient();
-  const results = await judgeLines(entries, options.context, options.concurrency, client);
+  const results = await judgeLines(
+    entries,
+    options.context,
+    options.concurrency,
+    options.threshold,
+    client,
+  );
 
   const output = formatResults(results, options);
   if (output) console.log(output);

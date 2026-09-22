@@ -54,13 +54,14 @@ cat input.txt | jev-text-assert
 明らかな誤りがない場合は出力しない。
 
 判定結果の確信度が低いものや、判断が難しいものもデフォルトでは出力しない
-（Noul値が0.8未満の行は誤りとして扱わない）。
+（Noul値が閾値未満の行は誤りとして扱わない）。
 
 ## オプション
 
 ```text
 --context <number>       前後に渡す行数（デフォルト: 2）
 --concurrency <number>   JEVへの同時リクエスト数（デフォルト: 4）
+--threshold <number>     誤りと判定するNoul値の閾値、0〜1（デフォルト: 0.8）
 --json                   JSON形式で出力
 --all                    明らかな誤り以外も含めて出力
 ```
