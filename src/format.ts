@@ -25,7 +25,7 @@ export function formatResults(results: JudgeResult[], options: CliOptions): stri
   return filtered
     .map((r) => {
       if (r.requestError) return `${r.line}: [ERROR] ${r.text} (${r.requestError})`;
-      if (options.all && r.score !== undefined) return `${r.line}: ${r.text} (score: ${r.score})`;
+      if (r.score !== undefined) return `${r.line}: ${r.text} (score: ${r.score})`;
       return `${r.line}: ${r.text}`;
     })
     .join("\n");
